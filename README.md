@@ -148,3 +148,356 @@
     - Tes aplikasi dengan menjalankan *command* *`flutter run`*.
 
 </details>
+
+<details>
+    <summary>Tugas 8</summary>
+    
+ 1. Jelaskan perbedaan antara `Navigator.push()` dan `Navigator.pushReplacement()`, disertai dengan contoh mengenai penggunaan kedua metode tersebut yang tepat!
+    - `Navigator.push()`: 
+        - Digunakan untuk menambahkan halaman baru ke tumpukan navigasi.
+        - Ketika kita menggunakan `Navigator.push()`, halaman baru ditambahkan ke atas tumpukan navigasi, dan pengguna dapat kembali ke halaman sebelumnya dengan menekan tombol "Kembali" pada perangkat mereka.
+        - Metode ini berguna ketika kita ingin menambahkan halaman baru ke dalam tumpukan dan memungkinkan pengguna untuk kembali ke halaman sebelumnya.
+    - `Navigator.pushReplacement()`: 
+        - Digunakan untuk menambahkan halaman baru ke tumpukan navigasi, tetapi perbedaannya dengan `Navigator.push()` adalah `Navigator.pushReplacement()` mengganti halaman yang baru saja diakses pengguna dengan halaman baru.
+        - Metode ini berguna ketika kita ingin menggantikan halaman yang baru saja diakses pengguna dengan halaman baru, sehingga ketika pengguna menekan tombol "Kembali", pengguna tidak akan kembali ke halaman yang baru pengguna akses, melainkan halaman sebelum halaman yang baru pengguna akses.
+
+ 2. Jelaskan masing-masing layout widget pada Flutter dan konteks penggunaannya masing-masing!
+    - Single-child layout widgets:
+      - Align: Widget yang menyelaraskan *child*-nya dengan dirinya sendiri dan secara opsional mengubah ukuran dirinya sendiri berdasarkan ukuran *child* tersebut.
+      - AspectRatio: Widget yang mencoba mengubah ukuran *child*-nya ke rasio aspek tertentu.
+      - Baseline: Kontainer yang memosisikan *child*-nya sesuai dengan *baseline child* tersebut.
+      - Center: Kontainer yang memosisikan *child*-nya di tengah.
+      - ConstrainedBox: Widget yang memberikan batasan tambahan pada *child*-nya.
+      - Container: Widget serbaguna yang dapat digunakan untuk mengatur tata letak dan styling.
+      - CustomSingleChildLayout: Widget yang tata letak *child*-nya diatur menggunakan pengaturan kustom.
+      - Expanded: Digunakan dalam Row atau Column untuk mengatur bagian dari tata letak yang akan mengambil ruang ekstra yang tersisa.
+      - FittedBox: Menskalakan dan memposisikan *child*-nya di dalam dirinya sendiri sesuai dengan ukuran ruang yang tersedia.
+      - FractionallySizedBox: Widget yang mengubah ukuran *child*-nya hingga sebagian kecil dari total ruang yang tersedia.
+      - IntrinsicHeight: Widget yang mengubah ukuran *child*-nya sesuai dengan tinggi intrinsik *child* tersebut.
+      - IntrinsicWidth: Widget yang mengubah ukuran *child*-nya sesuai dengan lebar intrinsik *child* tersebut.
+      - LimitedBox: Sebuah kotak yang membatasi ukurannya hanya jika tidak dibatasi.
+      - Offstage: Sebuah widget yang menampilkan *child*-nya seolah-olah berada di pohon.
+      - OverflowBox: Widget yang menerapkan batasan berbeda pada *child*-nya.
+      - Padding: Widget yang menyisipkan *child*-nya berdasarkan padding yang diberikan.
+      - SizedBox: Sebuah kotak dengan ukuran tertentu. Jika diberikan sebuah *child*, widget ini memaksa *child*-nya untuk memiliki lebar dan/atau tinggi tertentu.
+      - SizedOverflowBox: Widget dengan ukuran tertentu dan meneruskan batasannya ke *child*-nya.
+      - Transform: Widget yang digunakan untuk mentransformasi atau memodifikasi tampilan dan tata letak dari widget di dalamnya.
+    - Multi-child layout widgets:
+      - Column: Widget yang digunakan untuk mengatur widget secara vertikal.
+      - CustomMultiChildLayout: Widget yang menggunakan pengaturan kustom untuk mengubah ukuran dan memposisikan *children*-nya.
+      - Flow: Widget yang mengatur widget dalam arah horizontal atau vertikal, dan widget yang tidak muat di baris akan dipindahkan ke baris berikutnya.
+      - GridView: Digunakan untuk menampilkan daftar item dalam grid, dengan baris dan kolom yang dapat dikonfigurasi.
+      - IndexedStack: Tumpukan yang menampilkan satu *child* dari tumpukan *child* .
+      - LayoutBuilder: Membangun pohon widget yang dapat bergantung pada ukuran widget induk.
+      - ListBody: Widget yang menyusun *children*-nya secara berurutan sepanjang sumbu tertentu.
+      - ListView:  Widget yang memungkinkan kita untuk mengatur daftar berjejer dengan widget yang bisa di-scroll.
+      - Row: Widget yang digunakan untuk mengatur widget secara horizontal.
+      - Stack: Widget yang memungkinkan kita menumpuk widget di atas satu sama lain.
+      - Table: Menampilkan widget *child* dalam baris dan kolom.
+      - Wrap: Widget yang digunakan untuk mengatur widget dalam baris horizontal dan beralih ke baris baru ketika ruang terbatas.
+    - Sliver widgets:
+      - CupertinoSliverNavigationBar: Bilah navigasi bergaya iOS.
+      - CustomScrollView: ScrollView yang membuat efek *scroll* khusus menggunakan sliver.
+      - SliverAppBar: AppBar yang terintegrasi dengan CustomScrollView.
+      - SliverChildBuilderDelegate: *delegate* yang digunakan dalam Flutter untuk membangun daftar item di dalam widget CustomScrollView dengan menggunakan *builder function*.
+      - SliverChildListDelegate: *delegate* yang digunakan dalam Flutter untuk membangun daftar item di dalam widget CustomScrollView dengan menggunakan daftar eksplisit.
+      - SliverFixedExtentList: Sliver yang menempatkan beberapa *box children* dengan luas sumbu utama yang sama dalam array linier.
+      - SliverGrid: Sebuah sliver yang menempatkan beberapa *box children* dalam susunan dua dimensi.
+      - SliverList: Sliver yang menempatkan beberapa *box children* dalam array linier di sepanjang sumbu utama.
+      - SliverPadding: Sliver yang menerapkan *padding* pada setiap sisi sliver lainnya.
+      - SliverPersistentHeader: Sliver yang ukurannya bervariasi ketika sliver di-scroll ke tepi area pandang yang berlawanan dengan GrowthDirection sliver.
+      - SliverToBoxAdapter: Sliver yang berisi satu widget kotak.
+
+ 3. Sebutkan apa saja elemen input pada form yang kamu pakai pada tugas kali ini dan jelaskan mengapa kamu menggunakan elemen input tersebut!<br>
+    TextFormField, karena TextFormField adalah widget praktis yang nge-*wrap* sebuah widget TextField di dalam sebuah FormField.
+
+ 4. Bagaimana penerapan *clean architecture* pada aplikasi Flutter?<br>
+    Penerapan *clean architecture* dalam Flutter dilakukan dengan mengelompokkan file-file yang memiliki peran identikal sehingga memudahkan proses *maintenance*, mengurangi waktu pengembangan, dan sebagainya.
+   
+ 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial)
+    - Buat dua direktori baru bernama screens dan widgets dalam direktori lib.
+    - Pindahkan file `menu.dart` dan buat file baru bernama `inventorylist_form.dart` dalam direktori screens.
+    - Buat dua file baru bernama `inventory_card.dart` dan `left_drawer.dart` dalam direktori widgets.
+    - Pindahkan *class* InventoryItem dan InventoryCard dari `menu.dart` ke `inventory_card.dart` dan *import* `inventory_card.dart` pada file `menu.dart`.
+    - *Import* `left_drawer.dart` pada file `menu.dart` dan tambahkan drawer pada AppBar `menu.dart` menggunakan `left_drawer.dart`.
+    - Isi `left_drawer.dart` dengan kode berikut.
+        <pre>
+            import 'package:flutter/material.dart';
+            import 'package:inventory/screens/menu.dart';
+            import 'package:inventory/screens/inventorylist_form.dart';
+            
+            class LeftDrawer extends StatelessWidget {
+                const LeftDrawer({super.key});
+                    
+                @override
+                Widget build(BuildContext context) {
+                    return Drawer(
+                        child: ListView(
+                            children: [
+                                const DrawerHeader(
+                                    decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    ),
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                            Text(
+                                                'Inventory',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 30,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                ),
+                                            ),
+                                        ],
+                                    ),
+                                ),
+                                ListTile(
+                                    leading: const Icon(Icons.home_outlined),
+                                    title: const Text('Halaman Utama'),
+                                    onTap: () {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                            builder: (context) => MyHomePage(),
+                                        ));
+                                    },
+                                ),
+                                ListTile(
+                                    leading: const Icon(Icons.add_shopping_cart),
+                                    title: const Text('Tambah Item'),
+                                    onTap: () {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                            builder: (context) => const InventoryFormPage(),
+                                        ));
+                                    },
+                                ),
+                            ],
+                        ),
+                    );
+                }
+            }
+        </pre>
+    - Isi `inventorylist_form.dart` dengan kode berikut.
+        <pre>
+            import 'package:flutter/material.dart';
+            import 'package:inventory/screens/menu.dart';
+            import 'package:inventory/widgets/left_drawer.dart';
+            class InventoryFormPage extends StatefulWidget {
+                const InventoryFormPage({super.key});
+                @override
+                State<InventoryFormPage> createState() => _InventoryFormPageState();
+            }
+            class _InventoryFormPageState extends State<InventoryFormPage> {
+                final _formKey = GlobalKey<FormState>();
+                String _name = "";
+                String _price = "0";
+                String _amount = "0";
+                String _description = "";
+                @override
+                Widget build(BuildContext context) {
+                    return Scaffold(
+                    appBar: AppBar(
+                            title: const Center(
+                            child: Text(
+                                'Form Tambah Item',
+                            ),
+                        ),
+                        backgroundColor: Colors.grey,
+                        foregroundColor: Colors.white,
+                    ),
+                    drawer: const LeftDrawer(),
+                    body: Form(
+                        key: _formKey,
+                        child: SingleChildScrollView(
+                            child:
+                                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            Padding (
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                    decoration: InputDecoration(
+                                            hintText: "Nama Produk",
+                                            labelText: "Nama Produk",
+                                            border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                    ),
+                                    onChanged: (String? value) {
+                                            setState(() {
+                                            _name = value!;
+                                        });
+                                    },
+                                    validator: (String? value) {
+                                        if (value == null || value.isEmpty) {
+                                            return "Nama tidak boleh kosong!";
+                                        }
+                                        return null;
+                                    },
+                                ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                    decoration: InputDecoration(
+                                            hintText: "Harga",
+                                            labelText: "Harga",
+                                            border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                    ),
+                                    onChanged: (String? value) {
+                                            setState(() {
+                                            _price = value!;
+                                        });
+                                    },
+                                    validator: (String? value) {
+                                        if (value == null || value.isEmpty) {
+                                            return "Harga tidak boleh kosong!";
+                                        }
+                                        if (int.tryParse(value) == null) {
+                                            return "Harga harus berupa angka!";
+                                        }
+                                        return null;
+                                    },
+                                ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                    decoration: InputDecoration(
+                                            hintText: "Jumlah",
+                                            labelText: "Jumlah",
+                                            border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                    ),
+                                    onChanged: (String? value) {
+                                            setState(() {
+                                            _amount = value!;
+                                        });
+                                    },
+                                    validator: (String? value) {
+                                        if (value == null || value.isEmpty) {
+                                            return "Jumlah tidak boleh kosong!";
+                                        }
+                                        if (int.tryParse(value) == null) {
+                                            return "Jumlah harus berupa angka!";
+                                        }
+                                        return null;
+                                    },
+                                ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                    decoration: InputDecoration(
+                                            hintText: "Deskripsi",
+                                            labelText: "Deskripsi",
+                                            border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                    ),
+                                    onChanged: (String? value) {
+                                            setState(() {
+                                            _description = value!;
+                                        });
+                                    },
+                                    validator: (String? value) {
+                                        if (value == null || value.isEmpty) {
+                                            return "Deskripsi tidak boleh kosong!";
+                                        }
+                                        return null;
+                                    },
+                                ),
+                            ),
+                            Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                            ElevatedButton(
+                                                style: ButtonStyle(
+                                                    backgroundColor: MaterialStateProperty.all(Colors.grey),
+                                                ),
+                                                onPressed: () {
+                                                    if (_formKey.currentState!.validate()) {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                                return AlertDialog(
+                                                                    title: const Text('Item berhasil tersimpan'),
+                                                                    content: SingleChildScrollView(
+                                                                        child: Column(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                            Text('Nama: $_name'),
+                                                                            Text('Harga: $_price'),
+                                                                            Text('Jumlah: $_amount'),
+                                                                            Text('Deskripsi: $_description'),
+                                                                            ],
+                                                                        ),
+                                                                    ),
+                                                                    actions: [
+                                                                        TextButton(
+                                                                            child: const Text('OK'),
+                                                                            onPressed: () {
+                                                                            Navigator.pop(context);
+                                                                            },
+                                                                        ),
+                                                                    ],
+                                                                );
+                                                            },
+                                                        );
+                                                        _formKey.currentState!.reset();
+                                                    }
+                                                },
+                                                child: const Text(
+                                                    "Save",
+                                                    style: TextStyle(color: Colors.white),
+                                                ),
+                                            ),
+                                            const SizedBox(width: 50),
+                                            ElevatedButton(
+                                                style: ButtonStyle(
+                                                    backgroundColor: MaterialStateProperty.all(Colors.grey),
+                                                ),
+                                                onPressed: () {
+                                                    _formKey.currentState!.reset();
+                                                        Navigator.pushReplacement(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                            builder: (context) => MyHomePage(),
+                                                        ));
+                                                },
+                                                child: const Text(
+                                                    "Back",
+                                                    style: TextStyle(color: Colors.white),
+                                                ),
+                                            ),
+                                        ],
+                                    )),
+                                ),
+                            ])),
+                        ),
+                    );
+                }
+            }
+        </pre>
+    - Tambahkan fungsi pada `menu.dart` sehingga ketika pengguna menekan tombol Tambah Item, pengguna akan dialihkan ke halaman Tambah Item.
+        <pre>
+            ...
+            if (item.name == "Tambah Item") {
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const InventoryFormPage()));
+            }
+            ...
+        </pre>
+    - Tambahkan drawer pada file `inventorylist_form.dart` untuk menambahkan drawer pada Halaman AppItem.
+    - Tambahkan juga tombol kembali pada file `inventorylist_form.dart` agar pengguna bisa dengan mudah kembali ke halaman utama.
+</details>

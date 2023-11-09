@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inventory/screens/menu.dart';
 import 'package:inventory/widgets/left_drawer.dart';
+
 class InventoryFormPage extends StatefulWidget {
   const InventoryFormPage({super.key});
 
@@ -21,7 +22,7 @@ class _InventoryFormPageState extends State<InventoryFormPage> {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Form Tambah Produk',
+            'Form Tambah Item',
           ),
         ),
         backgroundColor: Colors.grey,
@@ -148,7 +149,7 @@ class _InventoryFormPageState extends State<InventoryFormPage> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text('Produk berhasil tersimpan'),
+                                title: const Text('Item berhasil tersimpan'),
                                 content: SingleChildScrollView(
                                   child: Column(
                                     crossAxisAlignment:
