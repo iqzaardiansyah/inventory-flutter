@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory/screens/inventorylist_form.dart';
+import 'package:inventory/widgets/barang_card.dart';
 
 class InventoryItem {
   final String name;
@@ -27,6 +28,9 @@ class InventoryCard extends StatelessWidget {
           if (item.name == "Tambah Item") {
             Navigator.push(context,
             MaterialPageRoute(builder: (context) => const InventoryFormPage()));
+          } else if (item.name == "Lihat Item") {
+            Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BarangList()));
           }
         },
         child: Container(

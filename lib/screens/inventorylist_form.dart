@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inventory/models/barang.dart';
 import 'package:inventory/screens/menu.dart';
+import 'package:inventory/storage/storage.dart';
 import 'package:inventory/widgets/left_drawer.dart';
 
 class InventoryFormPage extends StatefulWidget {
@@ -145,6 +147,12 @@ class _InventoryFormPageState extends State<InventoryFormPage> {
                       ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
+                          Barang barang = Barang(
+                              nama: _name,
+                              harga: _price,
+                              amount: _amount,
+                              description: _description);
+                          ItemsStorage.barangs.add(barang);
                           showDialog(
                             context: context,
                             builder: (context) {
