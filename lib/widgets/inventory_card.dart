@@ -30,7 +30,7 @@ class InventoryCard extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const InventoryFormPage()));
           } else if (item.name == "Lihat Item") {
             Navigator.push(context,
-            MaterialPageRoute(builder: (context) => BarangList()));
+            MaterialPageRoute(builder: (context) => const BarangList()));
           }
         },
         child: Container(

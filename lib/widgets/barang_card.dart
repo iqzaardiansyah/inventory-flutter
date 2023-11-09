@@ -4,12 +4,7 @@ import 'package:inventory/storage/storage.dart';
 import 'package:inventory/widgets/left_drawer.dart';
 
 class BarangList extends StatelessWidget {
-  BarangList({Key? key}) : super(key: key);
-
-  final List<Barang> items = [
-    const Barang(nama: 'Item 1', harga: '10.00', amount: '5', description: 'Description for Item 1'),
-    const Barang(nama: 'Item 2', harga: '15.00', amount: '3', description: 'Description for Item 2'),
-  ];
+  const BarangList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

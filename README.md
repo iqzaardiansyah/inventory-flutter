@@ -215,9 +215,10 @@
     Penerapan *clean architecture* dalam Flutter dilakukan dengan mengelompokkan file-file yang memiliki peran identikal sehingga memudahkan proses *maintenance*, mengurangi waktu pengembangan, dan sebagainya.
    
  5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial)
-    - Buat dua direktori baru bernama screens dan widgets dalam direktori lib.
+    - Buat empat direktori baru bernama screens, widgets, models, dan storage dalam direktori lib.
     - Pindahkan file `menu.dart` dan buat file baru bernama `inventorylist_form.dart` dalam direktori screens.
-    - Buat dua file baru bernama `inventory_card.dart` dan `left_drawer.dart` dalam direktori widgets.
+    - Buat tiga file baru bernama `inventory_card.dart`, `left_drawer.dart`, dan `barang_card.dart` dalam direktori widgets.
+    - Buat satu file bernama `barang.dart` dalam direktori models dan satu file lagi bernama `storage.dart` dalam direktori storage.
     - Pindahkan *class* InventoryItem dan InventoryCard dari `menu.dart` ke `inventory_card.dart` dan *import* `inventory_card.dart` pada file `menu.dart`.
     - *Import* `left_drawer.dart` pada file `menu.dart` dan tambahkan drawer pada AppBar `menu.dart` menggunakan `left_drawer.dart`.
     - Isi `left_drawer.dart` dengan kode berikut.
@@ -225,7 +226,8 @@
             import 'package:flutter/material.dart';
             import 'package:inventory/screens/menu.dart';
             import 'package:inventory/screens/inventorylist_form.dart';
-            
+            import 'package:inventory/widgets/barang_card.dart';
+             
             class LeftDrawer extends StatelessWidget {
                 const LeftDrawer({super.key});
                     
@@ -275,6 +277,17 @@
                                         ));
                                     },
                                 ),
+                                ListTile(
+                                    leading: const Icon(Icons.checklist),
+                                    title: const Text('Lihat Item'),
+                                    onTap: () {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                            builder: (context) => const BarangList(),
+                                        ));
+                                    },
+                                ),
                             ],
                         ),
                     );
@@ -284,8 +297,11 @@
     - Isi `inventorylist_form.dart` dengan kode berikut.
         <pre>
             import 'package:flutter/material.dart';
+            import 'package:inventory/models/barang.dart';
             import 'package:inventory/screens/menu.dart';
+            import 'package:inventory/storage/storage.dart';
             import 'package:inventory/widgets/left_drawer.dart';
+             
             class InventoryFormPage extends StatefulWidget {
                 const InventoryFormPage({super.key});
                 @override
@@ -426,6 +442,12 @@
                                                 ),
                                                 onPressed: () {
                                                     if (_formKey.currentState!.validate()) {
+                                                        Barang barang = Barang(
+                                                            nama: _name,
+                                                            harga: _price,
+                                                            amount: _amount,
+                                                            description: _description);
+                                                        ItemsStorage.barangs.add(barang);
                                                         showDialog(
                                                             context: context,
                                                             builder: (context) {
@@ -489,15 +511,141 @@
                 }
             }
         </pre>
-    - Tambahkan fungsi pada `menu.dart` sehingga ketika pengguna menekan tombol Tambah Item, pengguna akan dialihkan ke halaman Tambah Item.
+    - Isi `barang.dart` dengan kode berikut.
+        <pre>
+            import 'package:flutter/material.dart';
+             
+            class Barang {
+                final String nama;
+                final String harga;
+                final String amount;
+                final String description;
+                const Barang({
+                    required this.nama,
+                    required this.harga,
+                    required this.amount,
+                    required this.description,
+                });
+            }
+            class BarangCard extends StatelessWidget {
+                final Barang item;
+                const BarangCard(this.item, {Key? key}) : super(key: key);
+                @override
+                Widget build(BuildContext context) {
+                    return Card(
+                        elevation: 4, // Add elevation for a card-like effect
+                        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        child: InkWell(
+                            child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                        Text(
+                                            'Nama: ${item.nama}',
+                                            style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            ),
+                                        ),
+                                        const SizedBox(height: 8), // Add spacing between fields
+                                        Text(
+                                            'Harga: ${item.harga}',
+                                            style: const TextStyle(fontSize: 16),
+                                        ),
+                                        Text(
+                                            'Amount: ${item.amount}',
+                                            style: const TextStyle(fontSize: 16),
+                                        ),
+                                        Text(
+                                            'Description: ${item.description}',
+                                            style: const TextStyle(fontSize: 16),
+                                        ),
+                                    ],
+                                ),
+                            ),
+                        ),
+                    );
+                }
+            }
+        </pre>
+    - Isi `storage.dart` dengan kode berikut.
+        <pre>
+            import 'package:inventory/models/barang.dart';
+             
+            class ItemsStorage {
+                static List<Barang> barangs = [];
+            }
+        </pre>
+    - Isi `barang_card.dart` dengan kode berikut.
+        <pre>
+            import 'package:flutter/material.dart';
+            import 'package:inventory/models/barang.dart';
+            import 'package:inventory/storage/storage.dart';
+            import 'package:inventory/widgets/left_drawer.dart';
+             
+            class BarangList extends StatelessWidget {
+                const BarangList({Key? key}) : super(key: key);
+                 
+                @override
+                Widget build(BuildContext context) {
+                    return Scaffold(
+                        appBar: AppBar(
+                            title: const Text(
+                                'Inventory',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                ),
+                            ),
+                            elevation: 20,
+                            backgroundColor: Colors.grey,
+                            shadowColor: Colors.black,
+                        ),
+                        drawer: const LeftDrawer(),
+                        body: SingleChildScrollView(
+                            child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                    children: <Widget>[
+                                        const Padding(
+                                                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                                child: Text(
+                                                    "Iqza's Inventory",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 30,
+                                                        fontWeight: FontWeight.bold,
+                                                    ),
+                                                ),
+                                            ),
+                                        ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: ItemsStorage.barangs.length,
+                                            itemBuilder: (context, index) {
+                                            return BarangCard(ItemsStorage.barangs[index]);
+                                            },
+                                        ),
+                                    ],
+                                ),
+                            ),
+                        ),
+                    );
+                }
+            }
+
+        </pre>
+    - Tambahkan fungsi pada `inventory_card.dart` sehingga ketika pengguna menekan tombol Tambah Item, pengguna akan dialihkan ke halaman Tambah Item dan ketika pengguna menekan tombol Lihat Item, pengguna akan dialihkan ke halaman Lihat Item.
         <pre>
             ...
             if (item.name == "Tambah Item") {
                 Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const InventoryFormPage()));
+            } else if (item.name == "Lihat Item") {
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const BarangList()));
             }
             ...
         </pre>
-    - Tambahkan drawer pada file `inventorylist_form.dart` untuk menambahkan drawer pada Halaman AppItem.
+    - Tambahkan drawer pada file `inventorylist_form.dart` dan `barang_card.dart` untuk menambahkan drawer pada AppBar halaman.
     - Tambahkan juga tombol kembali pada file `inventorylist_form.dart` agar pengguna bisa dengan mudah kembali ke halaman utama.
 </details>
