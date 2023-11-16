@@ -15,26 +15,38 @@ class BarangPage extends StatefulWidget {
 class _BarangPageState extends State<BarangPage> {
 Future<List<Barang>> fetchBarang() async {
     var url = Uri.parse(
-        'http://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json-usr/');
+        // ganti ke 'http://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json-usr/'
+        // untuk filter berdasarkan user, tetapi karena di versi deploy tidak bisa
+        // login jadi filter user-nya tidak bekerja padahal kalau di local bisa jalan.
+        'http://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json/');
     var response = await http.get(
         url,
         headers: {"Content-Type": "application/json"},
     );
     var data = jsonDecode(utf8.decode(response.bodyBytes));
-    List<Barang> list_Barang = [];
+    List<Barang> listBarang = [];
     for (var d in data) {
         if (d != null) {
-            list_Barang.add(Barang.fromJson(d));
+            listBarang.add(Barang.fromJson(d));
         }
     }
-    return list_Barang;
+    return listBarang;
+}
+
+void _navigateToDetailPage(Barang barang) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => DetailPage(barang: barang,)
+    ),
+  );
 }
 
 @override
 Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-        title: const Text('Barang'),
+        title: const Text('Daftar Item'),
         ),
         drawer: const LeftDrawer(),
         body: FutureBuilder(
@@ -57,31 +69,84 @@ Widget build(BuildContext context) {
                 } else {
                     return ListView.builder(
                         itemCount: snapshot.data!.length,
-                        itemBuilder: (_, index) => Container(
+                        itemBuilder: (_, index) => InkWell (
+                          onTap: () => _navigateToDetailPage(snapshot.data![index]),
+                          child: Container(
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 12),
                                 padding: const EdgeInsets.all(20.0),
+                                decoration:BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(color: Colors.grey, spreadRadius: 3),
+                                  ],
+                                ),
                                 child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                     Text(
-                                    "${snapshot.data![index].fields.name}",
-                                    style: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                    ),
+                                      "${snapshot.data![index].fields.name}",
+                                      style: const TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                     const SizedBox(height: 10),
-                                    Text("${snapshot.data![index].fields.price}"),
+                                    Text("Jumlah: ${snapshot.data![index].fields.amount}"),
                                     const SizedBox(height: 10),
-                                    Text(
-                                        "${snapshot.data![index].fields.description}")
+                                    Text("Deskripsi: ${snapshot.data![index].fields.description}"),
                                 ],
                                 ),
-                            ));
+                            ) ,
+                        )
+                      );
                     }
                 }
             }));
     }
+}
+
+class DetailPage extends StatelessWidget {
+  final Barang barang;
+
+  const DetailPage({Key? key, required this.barang}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detail Item'),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              barang.fields.name,
+              style: const TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text("Harga: ${barang.fields.price}"),
+            const SizedBox(height: 10),
+            Text("Jumlah: ${barang.fields.amount}"),
+            const SizedBox(height: 10),
+            Text("Deskripsi: ${barang.fields.description}"),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Back'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

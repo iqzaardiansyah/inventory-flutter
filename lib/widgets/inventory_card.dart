@@ -32,7 +32,7 @@ class InventoryCard extends StatelessWidget {
           if (item.name == "Tambah Item") {
             Navigator.push(context,
             MaterialPageRoute(builder: (context) => const InventoryFormPage()));
-          } else if (item.name == "Lihat Produk") {
+          } else if (item.name == "Lihat Item") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const BarangPage()));
           } else if (item.name == "Logout") {
@@ -46,10 +46,7 @@ class InventoryCard extends StatelessWidget {
                   content: Text("$message Sampai jumpa, $uname."),
                 ));
                 // ignore: use_build_context_synchronously
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                );
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => const LoginPage()), (route) => false);
               } else {
                 // ignore: use_build_context_synchronously
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(

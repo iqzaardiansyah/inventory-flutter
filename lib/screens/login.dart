@@ -103,7 +103,14 @@ class _LoginPageState extends State<LoginPage> {
                                     );
                                 }
                             },
-                            child: const Text('Login'),
+                            child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                    Icon(Icons.login),
+                                    SizedBox(width: 8.0),
+                                    Text('Login'),
+                                ],
+                            )
                         ),
                     ],
                 ),
