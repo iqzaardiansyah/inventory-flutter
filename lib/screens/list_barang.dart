@@ -8,22 +8,19 @@ class BarangPage extends StatefulWidget {
     const BarangPage({Key? key}) : super(key: key);
 
     @override
+    // ignore: library_private_types_in_public_api
     _BarangPageState createState() => _BarangPageState();
 }
 
 class _BarangPageState extends State<BarangPage> {
 Future<List<Barang>> fetchBarang() async {
     var url = Uri.parse(
-        'http://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json/');
+        'http://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json-usr/');
     var response = await http.get(
         url,
         headers: {"Content-Type": "application/json"},
     );
-
-    // melakukan decode response menjadi bentuk json
     var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    // melakukan konversi data json menjadi object Barang
     List<Barang> list_Barang = [];
     for (var d in data) {
         if (d != null) {
