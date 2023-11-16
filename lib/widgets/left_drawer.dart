@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inventory/screens/list_barang.dart';
 import 'package:inventory/screens/menu.dart';
 import 'package:inventory/screens/inventorylist_form.dart';
-import 'package:inventory/widgets/barang_card.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -53,15 +53,14 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.checklist),
-            title: const Text('Lihat Item'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const BarangList(),
-              ));
-            },
+              leading: const Icon(Icons.shopping_basket),
+              title: const Text('Daftar Item'),
+              onTap: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BarangPage()),
+                  );
+              },
           ),
         ],
       ),

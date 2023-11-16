@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:inventory/models/barang.dart';
 import 'package:inventory/screens/menu.dart';
-import 'package:inventory/storage/storage.dart';
 import 'package:inventory/widgets/left_drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class InventoryFormPage extends StatefulWidget {
   const InventoryFormPage({super.key});
@@ -20,6 +21,7 @@ class _InventoryFormPageState extends State<InventoryFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -145,44 +147,36 @@ class _InventoryFormPageState extends State<InventoryFormPage> {
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.grey),
                       ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          Barang barang = Barang(
-                              nama: _name,
-                              harga: _price,
-                              amount: _amount,
-                              description: _description);
-                          ItemsStorage.barangs.add(barang);
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text('Item berhasil tersimpan'),
-                                content: SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Nama: $_name'),
-                                      Text('Harga: $_price'),
-                                      Text('Jumlah: $_amount'),
-                                      Text('Deskripsi: $_description'),
-                                    ],
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    child: const Text('OK'),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                          _formKey.currentState!.reset();
-                        }
+                      onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                              final response = await request.postJson(
+                              "http://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/create-flutter/",
+                              jsonEncode(<String, String>{
+                                  'name': _name,
+                                  'amount': _amount,
+                                  'price': _price.toString(),
+                                  'description': _description,
+                              }));
+                              if (response['status'] == 'success') {
+                                  // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                  content: Text("Produk baru berhasil disimpan!"),
+                                  ));
+                                  // ignore: use_build_context_synchronously
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => MyHomePage()),
+                                  );
+                              } else {
+                                  // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                      content:
+                                          Text("Terdapat kesalahan, silakan coba lagi."),
+                                  ));
+                              }
+                          }
                       },
                       child: const Text(
                         "Save",

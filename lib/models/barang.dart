@@ -1,58 +1,65 @@
-import 'package:flutter/material.dart';
+// To parse this JSON data, do
+//
+//     final barang = barangFromJson(jsonString);
+
+import 'dart:convert';
+
+List<Barang> barangFromJson(String str) => List<Barang>.from(json.decode(str).map((x) => Barang.fromJson(x)));
+
+String barangToJson(List<Barang> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Barang {
-  final String nama;
-  final String harga;
-  final String amount;
-  final String description;
-  const Barang({
-    required this.nama,
-    required this.harga,
-    required this.amount,
-    required this.description,
-  });
+    String model;
+    int pk;
+    Fields fields;
+
+    Barang({
+        required this.model,
+        required this.pk,
+        required this.fields,
+    });
+
+    factory Barang.fromJson(Map<String, dynamic> json) => Barang(
+        model: json["model"],
+        pk: json["pk"],
+        fields: Fields.fromJson(json["fields"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "model": model,
+        "pk": pk,
+        "fields": fields.toJson(),
+    };
 }
 
-class BarangCard extends StatelessWidget {
-  final Barang item;
+class Fields {
+    int user;
+    String name;
+    int amount;
+    int price;
+    String description;
 
-  const BarangCard(this.item, {Key? key}) : super(key: key);
+    Fields({
+        required this.user,
+        required this.name,
+        required this.amount,
+        required this.price,
+        required this.description,
+    });
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4, // Add elevation for a card-like effect
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: InkWell(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Nama: ${item.nama}',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 8), // Add spacing between fields
-              Text(
-                'Harga: ${item.harga}',
-                style: const TextStyle(fontSize: 16),
-              ),
-              Text(
-                'Amount: ${item.amount}',
-                style: const TextStyle(fontSize: 16),
-              ),
-              Text(
-                'Description: ${item.description}',
-                style: const TextStyle(fontSize: 16),
-              ),
-            ],
-          ),
-        ),
-      ),
+    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
+        user: json["user"],
+        name: json["name"],
+        amount: json["amount"],
+        price: json["price"],
+        description: json["description"],
     );
-  }
+
+    Map<String, dynamic> toJson() => {
+        "user": user,
+        "name": name,
+        "amount": amount,
+        "price": price,
+        "description": description,
+    };
 }
