@@ -153,7 +153,7 @@ class _InventoryFormPageState extends State<InventoryFormPage> {
                               "http://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/create-flutter/",
                               jsonEncode(<String, String>{
                                   'name': _name,
-                                  'amount': _amount,
+                                  'amount': _amount.toString(),
                                   'price': _price.toString(),
                                   'description': _description,
                               }));
