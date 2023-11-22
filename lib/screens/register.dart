@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -92,17 +91,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    final response = await http.post(
-                      Uri.parse("https://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/auth/register/"),
-                      headers: {
-                        'Cookie': request.cookies.toString(), // Pass the cookie in the headers
-                      },
-                      body: {
+                    final response = await request.post(
+                      'https://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/auth/register/',
+                      {
                         'username': _username,
                         'password': _password,
                       },
                     );
-                    if (response.statusCode == 200) {
+                    if (response['status'] == true) {
                       // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                     } else {
