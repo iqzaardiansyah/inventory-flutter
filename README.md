@@ -1095,6 +1095,7 @@
     - Tambahkan *path* baru pada `main/urls.py` dengan kode berikut.
         <pre>
             path('create-flutter/', create_product_flutter, name='create_product_flutter'),
+            path('json-usr/', show_json_user, name='show_json_user'),
         </pre>
     - Pada direktori Flutter, modifikasi file `inventorylist_form.dart` agar halaman menggunakan `CookieRequest` menggunakan kode berikut.
         <pre>
