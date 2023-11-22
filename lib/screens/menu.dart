@@ -3,7 +3,7 @@ import 'package:inventory/widgets/left_drawer.dart';
 import 'package:inventory/widgets/inventory_card.dart';
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  MyHomePage({super.key});
 
   final List<InventoryItem> items = [
     InventoryItem("Lihat Item", Icons.checklist, Colors.amber),

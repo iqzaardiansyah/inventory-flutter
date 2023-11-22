@@ -18,7 +18,7 @@ Future<List<Barang>> fetchBarang() async {
         // ganti ke 'https://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json-usr/'
         // untuk filter berdasarkan user, tetapi karena di versi deploy tidak bisa
         // login jadi filter user-nya tidak bekerja padahal kalau di local bisa jalan.
-        'https://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json/');
+        'https://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json-usr/');
     var response = await http.get(
         url,
         headers: {"Content-Type": "application/json"},
