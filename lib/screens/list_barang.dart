@@ -5,7 +5,7 @@ import 'package:inventory/models/barang.dart';
 import 'package:inventory/widgets/left_drawer.dart';
 
 class BarangPage extends StatefulWidget {
-    const BarangPage({Key? key}) : super(key: key);
+    const BarangPage({super.key});
 
     @override
     // ignore: library_private_types_in_public_api
@@ -15,10 +15,10 @@ class BarangPage extends StatefulWidget {
 class _BarangPageState extends State<BarangPage> {
 Future<List<Barang>> fetchBarang() async {
     var url = Uri.parse(
-        // ganti ke 'http://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json-usr/'
+        // ganti ke 'https://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json-usr/'
         // untuk filter berdasarkan user, tetapi karena di versi deploy tidak bisa
         // login jadi filter user-nya tidak bekerja padahal kalau di local bisa jalan.
-        'http://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json/');
+        'https://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/json/');
     var response = await http.get(
         url,
         headers: {"Content-Type": "application/json"},
@@ -111,7 +111,7 @@ Widget build(BuildContext context) {
 class DetailPage extends StatelessWidget {
   final Barang barang;
 
-  const DetailPage({Key? key, required this.barang}) : super(key: key);
+  const DetailPage({super.key, required this.barang});
 
   @override
   Widget build(BuildContext context) {

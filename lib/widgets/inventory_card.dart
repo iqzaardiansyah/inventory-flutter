@@ -37,7 +37,7 @@ class InventoryCard extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const BarangPage()));
           } else if (item.name == "Logout") {
               final response = await request.logout(
-                  "http://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/auth/logout/");
+                  "https://iqza-ardiansyah-tugas.pbp.cs.ui.ac.id/auth/logout/");
               String message = response["message"];
               if (response['status']) {
                 String uname = response["username"];
